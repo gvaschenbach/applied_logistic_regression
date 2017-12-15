@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1512851241074.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1836595235",
+    "id" : "EFE08AEF",
+    "lastKnownWriteTime" : 1512852096,
+    "last_content_update" : 1513345886948,
+    "path" : "~/dev/applied_logistic_regression/notebooks/chd_analysis.Rmd",
+    "project_path" : "notebooks/chd_analysis.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "30,125",
+        "scrollLine" : "25",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

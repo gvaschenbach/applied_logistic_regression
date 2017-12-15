@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1510368445821.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1216459496",
+    "id" : "3CCD63BC",
+    "lastKnownWriteTime" : 1513346771,
+    "last_content_update" : 1513346771562,
+    "path" : "~/dev/applied_logistic_regression/notebooks/icu_analysis.Rmd",
+    "project_path" : "notebooks/icu_analysis.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "82,34",
+        "scrollLine" : "39",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,40 @@
+---
+title: "CHD analysis"
+output: 
+  html_notebook
+    smart: FALSE
+---
+
+```{r}
+df <- read.delim('data/CHDAGE.txt')
+```
+
+```{r}
+str(df)
+
+df <- transform( df
+                 , ID = factor( ID )
+                 , AGE = AGE
+                 , CHD = factor( CHD 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No CHD', 'Has CHD' ) )
+                 )
+```
+
+```{r}
+df.fit <- glm( CHD
+               ~ AGE
+               , data = df
+               , family = 'binomial' )
+summary( df.fit )
+```
+### Based on the value of 4.61 for the z value, it looks like glm uses the Wald test in performing a glm logistic regression.
+
+```{r}
+exp( coef( df.fit ) )
+```
+
+
+```{r}
+exp( confint( df.fit ) )
+```

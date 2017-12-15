@@ -1,0 +1,112 @@
+---
+title: "ICU analysis"
+output: 
+  html_notebook
+    smart: false
+---
+
+## Load data
+```{r data}
+rm(list = ls())
+df <- read.delim('../data/ICU.txt')
+```
+
+```{r}
+df <- transform( df
+                 , ID = ID
+                 , STA = factor( STA
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'Died', 'Lived' ) )
+                 , AGE = AGE
+                 , GENDER = factor( GENDER
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Male', 'Female' ) )
+                 , RACE = factor( RACE
+                                  , levels = c( 1, 2, 3 )
+                                  , labels = c( 'White', 'Black', 'Other' ) )
+                 , SER = factor( SER
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'Medical', 'Surgical' ) )
+                 , CAN = factor( CAN 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'Cancer not present', 'Cancer present' ) 
+                                 )
+                 , CRN = factor( CRN 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No hx of CRF', 'Has h of CRF' ) 
+                                 )
+                 , INF = factor( INF 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No infection at admission', 'Probable infection at admission' )
+                                 )
+                 , CPR = factor( CPR
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No CPR given', 'CPR given' )
+                                 )
+                 , SYS = SYS 
+                 , HRA = HRA
+                 , PRE = factor( PRE 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No prev ICU adx', 'Has prev ICU adx' )
+                                 )
+                 , TYPE = factor( TYPE 
+                                  , levels = c( 0, 1 )
+                                  , labels = c( 'Elective', 'Emergency' )
+                                  )
+                 , FRA = factor( FRA 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No fracture', 'Has fracture' )
+                                 )
+                 , PO2 = factor( PO2 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'PO2 > 60', 'PO2 <= 60' )
+                                 )
+                 , PH = factor( PH 
+                                , levels = c( 0, 1 )
+                                , labels = c( 'PH >= 7.25', 'PH < 7.25' )
+                                )
+                 , PCO = factor( PCO 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'PCO2 <= 45', 'PCO2 > 45' )
+                                 )
+                 , BIC = factor( BIC 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'Bicarb >= 18', 'Bicarb < 18' )
+                                 )
+                 , CRE = factor( CRE 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'Creatinine <= 2.0', 'Creatinine > 2.0' )
+                                 )
+                 , LOC = factor( LOC
+                                 , levels = c( 0, 1, 2 )
+                                 , labels = c( 'No coma or DS', 'Deep stupor', 'Coma' )
+                                 )
+                 
+                                 
+                 )
+```
+
+```{r}
+str(df)
+```
+
+```{r}
+icu.null.fit <- glm( df$STA
+                ~ 1
+                , family = 'binomial' )
+summary( icu.null.fit )
+```
+
+```{r}
+icu.age.fit <- glm( STA
+                    ~ AGE
+                    , data = df
+                    , family = 'binomial' )
+summary( icu.age.fit )
+```
+
+```{r}
+anova( icu.age.fit
+      , test = 'Chisq' )
+```
+

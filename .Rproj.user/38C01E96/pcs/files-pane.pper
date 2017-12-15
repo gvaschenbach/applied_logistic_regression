@@ -1,0 +1,9 @@
+{
+    "path" : "~/dev/applied_logistic_regression/data",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
