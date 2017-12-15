@@ -7,7 +7,6 @@ output:
 
 ## Load data
 ```{r data}
-rm(list = ls())
 df <- read.delim('../data/ICU.txt')
 ```
 
@@ -49,7 +48,7 @@ df <- transform( df
                                  , levels = c( 0, 1 )
                                  , labels = c( 'No prev ICU adx', 'Has prev ICU adx' )
                                  )
-                 , TYPE = factor( TYPE 
+                 , TYP = factor( TYP
                                   , levels = c( 0, 1 )
                                   , labels = c( 'Elective', 'Emergency' )
                                   )
@@ -90,14 +89,15 @@ df <- transform( df
 str(df)
 ```
 
-```{r}
+```{r null }
 icu.null.fit <- glm( df$STA
                 ~ 1
                 , family = 'binomial' )
 summary( icu.null.fit )
 ```
+### This is fit automatically in the GLM with the variable(s) of interest.
 
-```{r}
+```{r univ }
 icu.age.fit <- glm( STA
                     ~ AGE
                     , data = df

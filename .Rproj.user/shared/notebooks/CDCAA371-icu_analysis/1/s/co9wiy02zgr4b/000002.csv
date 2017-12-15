@@ -1,17 +1,4 @@
----
-title: "ICU analysis"
-output: 
-  html_notebook
-    smart: false
----
-
-## Load data
-```{r data}
-df <- read.delim('../data/ICU.txt')
-```
-
-```{r}
-df <- transform( df
+"0","df <- transform( df
                  , ID = ID
                  , STA = factor( STA
                                  , levels = c( 0, 1 )
@@ -48,7 +35,7 @@ df <- transform( df
                                  , levels = c( 0, 1 )
                                  , labels = c( 'No prev ICU adx', 'Has prev ICU adx' )
                                  )
-                 , TYP = factor( TYP
+                 , TYPE = factor( TYPE 
                                   , levels = c( 0, 1 )
                                   , labels = c( 'Elective', 'Emergency' )
                                   )
@@ -83,30 +70,7 @@ df <- transform( df
                  
                                  
                  )
-```
-
-```{r}
-str(df)
-```
-
-```{r null }
-icu.null.fit <- glm( df$STA
-                ~ 1
-                , family = 'binomial' )
-summary( icu.null.fit )
-```
-### This is fit automatically in the GLM with the variable(s) of interest.
-
-```{r univ }
-icu.age.fit <- glm( STA
-                    ~ AGE
-                    , data = df
-                    , family = 'binomial' )
-summary( icu.age.fit )
-```
-
-```{r}
-anova( icu.age.fit
-      , test = 'Chisq' )
-```
-
+"
+"2","Error in factor(TYPE, levels = c(0, 1), labels = c(""Elective"", ""Emergency"")) : 
+  object 'TYPE' not found
+"
