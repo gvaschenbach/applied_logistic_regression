@@ -1,0 +1,53 @@
+---
+title: "Low birth weight analysis"
+output: 
+  html_notebook
+    smart: false
+---
+
+## Load data
+```{r data}
+df <- read.delim( '../data/raw/GLOW/GLOW500.txt' )
+```
+
+```{r munge }
+df <- transform( df
+                 , SUB_ID = factor( SUB_ID )
+                 , SITE_ID = factor( SITE_ID )
+                 , PHY_ID = factor( PHY_ID )
+                 , PRIORFRAC = factor( PRIORFRAC
+                                      , levels = c( 0, 1 )
+                                      , labels = c( 'No prior fx', 'Has prior fx' )
+                                      )
+                 , AGE = AGE
+                 , WEIGHT = WEIGHT
+                 , HEIGHT = HEIGHT
+                 , BMI = BMI
+                 , PREMENO = factor( PREMENO 
+                                     , levels = c( 0, 1 )
+                                     , labels = c( 'No menopause before 45yo', 'Menopause before 45yo' )
+                                     )
+                 , MOMFRAC = factor( MOMFRAC 
+                                     , levels = c( 0, 1 )
+                                     , labels = c( 'No mother hip fx', 'Has mother hip fx' )
+                                     )
+                 , ARMASSIST = factor( ARMASSIST 
+                                       , levels = c( 0, 1 )
+                                       , labels = c( 'Arms not needed', 'Arms needed' )
+                                       )
+                 , SMOKE = factor( SMOKE 
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'No hx of smoking', 'Has hx of smoking' )
+                                   )
+                 , RATERISK = factor( RATERISK 
+                                      , levels = c( 1, 2, 3 )
+                                      , labels = c( 'Less than others', 'Same as others', 'Greater than others' )
+                                      )
+                 , FRACSCORE = FRACSCORE
+                 , FRACTURE = factor( FRACTURE
+                                      , levels = c( 0, 1 )
+                                      , labels = c( 'No fx in first year', 'Has fx in first year' )
+                 )
+                 )
+```
+
