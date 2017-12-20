@@ -1,0 +1,50 @@
+---
+title: "Low birth weight analysis"
+output: 
+  html_notebook
+    smart: false
+---
+
+## Load data
+```{r data}
+df <- read.delim('../data/raw/LOWBWT/LOWBWT.txt')
+```
+
+```{r mung}
+df <- transform( df
+                 , ID = ID
+                 , LOW = factor( LOW
+                                 , levels = c( 0, 1 )
+                                 , labels = c( '>= 2500g', '< 2500g' ) 
+                                 )
+                 , AGE = AGE
+                 , LWT = LWT
+                 , RACE = factor( RACE
+                                  , levels = c( 1, 2, 3 )
+                                  , labels = c( 'White', 'Black', 'Other' )
+                                  )
+                 , SMOKE = factor( SMOKE
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'Didn\'t smoke', 'Did smoke' )
+                                   )
+                 , PTL = factor( PTL 
+                                 , levels = c( 0, 1 )
+                                 , labels = c( 'No prematurity', 'Prematurity' )
+                                 )
+                 , HT = factor( HT
+                              , levels = c( 0, 1 )
+                              , labels = c( 'No hx of hypertension', 'Hx of hypertension' )
+                              )
+                 , UI = factor( UI
+                              , levels = c( 0, 1 )
+                              , labels = c( 'No uterine irritability', 'Has uterine irritability' )
+                              )
+                 , FTV = factor( FTV
+                               , levels = c( 0, 1, 2 )
+                               , labels = c( 'No visits', 'One visit', 'Two or more visits' )
+                               )
+                 , BWT = BWT
+                 
+                 )
+```
+

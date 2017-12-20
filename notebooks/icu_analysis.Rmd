@@ -110,3 +110,12 @@ anova( icu.age.fit
       , test = 'Chisq' )
 ```
 
+```{r mult }
+icu.age.fit <- glm( STA
+                    ~ AGE
+                    + INF
+                    , data = df
+                    , family = 'binomial' )
+summary( icu.age.fit )
+```
+
