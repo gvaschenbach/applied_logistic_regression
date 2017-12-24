@@ -1,7 +1,5 @@
-"0","icu.null.fit <- glm( df$STA"
-"0","                ~ 1"
-"0","                , family = 'binomial' )"
-"0","summary( icu.null.fit )"
+"0","summary( icu.null.fit )
+"
 "1","
 Call:
 "
