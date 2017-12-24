@@ -5,6 +5,12 @@ output:
     df_print: paged
 ---
 
+```{r libraries }
+library( ggplot2 )
+library( lmtest )
+```
+
+
 ```{r data }
 df <- read.delim( '../data/raw/MYOPIA/MYOPIA.txt' )
 ```

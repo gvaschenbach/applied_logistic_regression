@@ -1,5 +1,5 @@
 {
-    "path" : "~/dev/applied_logistic_regression/data/raw/GLOW",
+    "path" : "~/dev/applied_logistic_regression/data/raw",
     "sortOrder" : [
         {
             "ascending" : true,

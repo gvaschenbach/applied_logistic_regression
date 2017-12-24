@@ -1,12 +1,16 @@
 ---
 title: "ICU analysis"
-output: 
+output:
+  html_document:
+    df_print: paged
   html_notebook:
-    smart: false
+    smart: no
 ---
 
 ## Load data
 ```{r data}
+library( ggplot2 )
+library( lmtest )
 df <- read.delim('../data/ICU.txt')
 ```
 
@@ -198,5 +202,46 @@ waldtest( glm( df$STA
                , family = binomial( link = 'logit' )
                )
         )
+```
+
+```{r race_bucket }
+df$NONWHITE_FLG <- as.numeric( df$RACE != 'White' )
+fit.nonwhite <- glm( df$STA
+      ~ df$NONWHITE_FLG 
+      , family = binomial( link = 'logit' ) 
+      ) 
+summary( fit.nonwhite )
+```
+
+```{r nonwhite_lrt }
+lrtest( 
+  glm( df$STA
+       ~ 1
+       , family = binomial( link = 'logit' )
+       )
+  , fit.nonwhite
+  )
+```
+
+```{r nonwhite_wald }
+test.nonwhite.wald <- waldtest( 
+  glm( df$STA
+       ~ 1
+       , family = binomial( link = 'logit' )
+       )
+  , glm( df$STA
+         ~ df$NONWHITE_FLG
+         , family = binomial( link = 'logit' )
+         )
+  )
+test.nonwhite.wald
+```
+
+```{r nonwhite_waldci }
+coefci( fit.nonwhite )
+```
+
+```{r nonwhite_lrtci }
+## Any package with this function?
 ```
 
