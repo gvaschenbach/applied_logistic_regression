@@ -13,7 +13,7 @@ library( lmtest )
 
 ```{r data }
 df <- read.delim( '../data/raw/MYOPIA/MYOPIA.txt' )
-```
+```````
 
 ```{r munge }
 df <- transform( df
