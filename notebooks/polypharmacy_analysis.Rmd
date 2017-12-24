@@ -1,0 +1,64 @@
+---
+title: "Polypharmacy analysis"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r data }
+df <- read.delim( '../data/raw/POLYPHARM/POLYPHARM.txt' )
+```
+  
+```{r}
+
+df <- transform( df 
+                  , ID = factor( ID )
+                  , POLYPHARMACY = factor( POLYPHARMACY 
+                                           , levels = c( 0, 1 )
+                                           , labels = c( 'No', 'Yes' ) 
+                                           )
+                  , MHV4 = factor( MHV4 
+                                   , levels = c( 0, 1, 2, 3 )
+                                   , labels = c( 'None', 'One to five', 'Six to fourteen', '> fourteen' )
+                                   )
+                  , INPTMHV3 = factor( INPTMHV3 
+                                       , levels = c( 0, 1, 2 )
+                                       , labels = c( 'None', 'One', 'More than one' )
+                                       )
+                  , YEAR = factor( YEAR )
+                  , GROUP = factor( GROUP
+                                    , levels = c( 1, 2, 3 )
+                                    , labels = c( 'Covered fam + children', 'Aged, blind, or disabled', 'Foster care' )
+                                    )
+                  , URBAN = factor( URBAN
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Urban', 'Rural' )
+                                    )
+                  , COMORBID = factor( COMORBID 
+                                       , levels = c( 0, 1 )
+                                       , labels = c( 'No', 'Yes' )
+                                       )
+                  , ANYPRIM = factor( ANYPRIM 
+                                      , levels = c( 0, 1 )
+                                      , labels = c( 'No', 'Yes' )
+                                      )
+                  , NUMPRIM = factor( NUMPRIM 
+                                        , levels = c( 0, 1, 2 )
+                                        , labels = c( 'None', 'One', 'More than one' )
+                                        )
+                  , GENDER = factor( GENDER
+                                     , levels = c( 0, 1 )
+                                     , labels = c( 'Female', 'Male' )
+                                     )
+                  , RACE = factor( RACE 
+                                   , levels = c( 0, 1, 2 )
+                                   , labels = c( 'White', 'Black', 'Other' )
+                                   )
+                  , ETHNIC = factor( ETHNIC 
+                                     , levels = c( 0, 1 )
+                                     , labels = c( 'Non-hispanic', 'Hispanic' )
+                                     )
+                  , AGE = AGE
+                  )
+```
+

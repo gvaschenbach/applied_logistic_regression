@@ -1,0 +1,40 @@
+---
+title: "Burn injury analysis"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r data }
+df <- read.delim('../data/raw/BURN/BURN1000.txt' )
+```
+
+```{r munge }
+df <- transform( df
+                 , ID = factor( ID )
+                 , FACILITY = factor( FACILITY )
+                 , DEATH = factor( DEATH
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'Alive', 'Dead' )
+                                   )
+                 , AGE = AGE
+                 , GENDER = factor( GENDER 
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Female', 'Male' )
+                                  )
+                 , RACE = factor( RACEC
+                                  , levels = c( 0, 1 )
+                                  , labels = c( 'Non-white', 'White' )
+                                  )
+                 , TBSA = TBSA
+                 , INH_INJ = factor( INH_INJ 
+                                     , levels = c( 0, 1 )
+                                     , labels = c( 'No', 'Yes' )
+                                     )
+                 , FLAME = factor( FLAME
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'No', 'Yes' )
+                                   )
+                 )
+```
+

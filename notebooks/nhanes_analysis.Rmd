@@ -1,0 +1,64 @@
+---
+title: "NHANES analysis"
+output: html_notebook
+---
+
+```{r data }
+df <- read.delim( '../data/raw/NHANES/NHANES.txt' )
+```
+
+```{r munge }
+df <- transform( df
+                 , ID = factor( ID )
+                 , GENDER = factor( GENDER 
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Male', 'Female' )
+                                    )
+                 , AGE = AGE
+                 , MARSTAT = factor( MARSTAT
+                                     , levels = c( 1, 2, 3, 4, 5, 6 )
+                                     , labels = c( 'Married'
+                                                   , 'Widowed'
+                                                   , 'Divorced'
+                                                   , 'Separated'
+                                                   , 'Never married'
+                                                   , 'Living together' )
+                                     )
+                 , SAMPLEWT = SAMPLEWT
+                 , PSU = PSU
+                 , STRATA = STRATA
+                 , TCHOL = TCHOL
+                 , HDL = HDL
+                 , SYSBP = SYSBP
+                 , DBP = DBP
+                 , WT = WT
+                 , HT = HT
+                 , BMI = BMI
+                 , VIGWRK = factor( VIGWRK 
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Yes', 'No' )
+                                    )
+                 , MODWRK = factor( MODWRK 
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'Yes', 'No' )
+                                   )
+                 , WLKBIK = factor( WLKBIK 
+                                    , levels = c( 0,1 )
+                                    , labels = c( 'Yes', 'No' )
+                                    )
+                 , VIGRECEXR = factor( VIGRECEXR 
+                                      , levels = c( 0, 1 )
+                                      , labels= c( 'Yes', 'No' )
+                                      )
+                 , MODRECEXR = factor( MODRECEXR 
+                                      , levels = c( 0, 1 )
+                                      , labels = c( 'Yes', 'No' )
+                                      )
+                 , SEDMIN = SEDMIN
+                 , OBESE = factor( OBESE
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'BMI < 35', 'BMI > 35' )
+                                   )
+                 )
+```
+

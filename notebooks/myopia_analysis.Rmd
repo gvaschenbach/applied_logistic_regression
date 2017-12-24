@@ -1,0 +1,115 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r data }
+df <- read.delim( '../data/raw/MYOPIA/MYOPIA.txt' )
+```
+
+```{r munge }
+df <- transform( df
+                 , ID = factor( ID )
+                 , STUDYYEAR = factor( STUDYYEAR )
+                 , MYOPIC = factor( MYOPIC
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'No', 'Yes' )
+                                    )
+                 , AGE = AGE
+                 , GENDER = factor( GENDER
+                                    , levels = c( 0, 1 )
+                                    , labels = c( 'Male', 'Female' )
+                                    )
+                 , SPHEQ = SPHEQ
+                 , AL = AL
+                 , ACD = ACD
+                 , LT = LT
+                 , VCD = VCD
+                 , SPORTHR = SPORTHR
+                 , READHR = READHR
+                 , COMPHR = COMPHR
+                 , STUDYHR = STUDYHR
+                 , TVHR = TVHR
+                 , DIOPTERHR = DIOPTERHR
+                 , MOMMY = factor( MOMMY
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'No', 'Yes' )
+                                   )
+                 , DADMY = factor( DADMY
+                                   , levels = c( 0, 1 )
+                                   , labels = c( 'No', 'Yes' )
+                                   )
+                 )
+```
+
+```{r fit }
+myopia.fit <- glm(
+  MYOPIC 
+  ~ SPHEQ
+  , data = df
+  , family = binomial( link = 'logit' )
+)
+```
+
+```{r summary.fit }
+summary( myopia.fit )
+```
+
+```{r coef }
+exp( coef( myopia.fit ) )
+```
+
+```{r confint }
+exp( confint( myopia.fit ) )
+```
+
+```{r scatter } 
+ggplot( df ) +
+  geom_point( aes( x = MYOPIC, y = SPHEQ ) ) +
+  theme_bw()
+```
+
+```{r cut }
+df$SPHEQ_CUT <- cut( df$SPHEQ, breaks = c( -1, 0.6990, 0.4562, 1.0340, 4.3720 ) )
+ggplot( df ) +
+  geom_point( aes( x = MYOPIC, y = SPHEQ_CUT ) ) +
+  theme_bw()
+```
+
+```{r fitted }
+di <- data.frame( df$SPHEQ
+                  , ( exp( 1.05545626+ 0.02164247 * df$SPHEQ ) ) 
+                               / ( 1+( exp( 1.05545626+ 0.02164247 * df$SPHEQ ) ) ) )
+ggplot( di ) +
+  geom_line( aes( x = di$X.exp.1.05545626...0.02164247...df.SPHEQ....1....exp.1.05545626..., y = di$df.SPHEQ ), colour = 'red', alpha = .5 ) +
+  theme_bw()
+```
+
+```{r lrtest }
+lrtest( glm( df$MYOPIC
+            ~ 1
+            , family = binomial( link = 'logit' ) 
+            )
+        , 
+        glm( df$MYOPIC
+              ~ df$SPHEQ
+            , family = binomial( link = 'logit' ) 
+            )
+        )
+```
+
+```{r}
+waldtest( glm( df$MYOPIC
+            ~ 1
+            , family = binomial( link = 'logit' ) 
+            )
+        , 
+        glm( df$MYOPIC
+              ~ df$SPHEQ
+            , family = binomial( link = 'logit' ) 
+            )
+        )
+```
+

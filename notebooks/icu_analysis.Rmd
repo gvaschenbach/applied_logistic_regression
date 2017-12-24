@@ -1,7 +1,7 @@
 ---
 title: "ICU analysis"
 output: 
-  html_notebook
+  html_notebook:
     smart: false
 ---
 
@@ -117,5 +117,86 @@ icu.age.fit <- glm( STA
                     , data = df
                     , family = 'binomial' )
 summary( icu.age.fit )
+```
+
+```{r}
+icu.age.fit <- glm( STA
+                    ~ AGE
+                    , data = df
+                    , family = 'binomial' )
+summary( icu.age.fit )
+```
+
+```{r coef }
+exp( coef( icu.age.fit ) )
+```
+
+```{r confint }
+exp( confint( icu.age.fit ) )
+```
+
+
+```{r}
+df$AGE_CUT <- cut( df$AGE
+     , breaks = c( 15, 25, 35, 45, 55, 65, 75, 85, 95 ) )
+```
+
+```{r}
+ggplot( df ) +
+  geom_point( aes( x = STA, y = AGE_CUT ) ) +
+  theme_bw()
+```
+
+```{r}
+prop.table( table( df$STA, df$AGE_CUT  ), 2 )
+```
+
+```{r}
+a <- c( 0.93, 1, 0.82, 0.81, 0.74, 0.78, 0.78, 0.60 )
+b <- c( 1, 25, 37.5, 50, 62.5, 75, 87.5, 100 )
+ggplot( data.frame( cbind( a, b ) ) ) +
+  geom_point( aes( x = b, y = a ) ) +
+  ylim( 0, 1 ) +
+  theme_bw()
+```
+
+```{r fitted values }
+di <- di <- data.frame( cbind( df$AGE                          
+                               , ( exp( -3.23062+0.02387 * df$AGE ) ) 
+                               / ( 1+( exp( -3.23062 + 0.02387 * df$AGE ) ) ) ) )
+
+a <- c( 0.93, 1, 0.82, 0.81, 0.74, 0.78, 0.78, 0.60 )
+b <- c( 0, 25, 37.5, 50, 62.5, 75, 87.5, 100 )
+dj <- data.frame( cbind( a, b ) )
+
+ggplot( ) +
+  geom_point( aes( x = dj$b, y = dj$a ) ) +
+  geom_line( aes( x = di$X1, y = 1 - di$X2 ), colour = 'red', alpha = .5) +
+  ylim( 0, 1 ) +
+  theme_bw()
+```
+
+```{r lrt}
+lrtest( glm( df$STA 
+             ~ 1
+             , family = binomial( link = 'logit' )
+             )
+        , glm( df$STA
+               ~ df$AGE
+               , family = binomial( link = 'logit' )
+               )
+        )
+```
+
+```{r wald }
+waldtest( glm( df$STA 
+             ~ 1
+             , family = binomial( link = 'logit' )
+             )
+        , glm( df$STA
+               ~ df$AGE
+               , family = binomial( link = 'logit' )
+               )
+        )
 ```
 
